@@ -2,6 +2,7 @@ from datetime import timedelta
 import nextcord as nc
 import os
 import sqlite3
+import pro
 from nextcord import slash_command as slash
 from nextcord import Interaction, SlashOption
 from nextcord.ext import commands, application_checks
@@ -328,7 +329,7 @@ class Mod(commands.Cog):
         )
     ):
         try:
-            deleted = await channel.purge(limit=amount, reason=f"Messages purged by {inter.user}")
+            deleted = await channel.purge(limit=amount)
             embed = nc.Embed(
                 title="Messages Purged",
                 description=f"Purged {len(deleted)} messages in {channel.mention}.",
@@ -340,7 +341,7 @@ class Mod(commands.Cog):
             print(e)
             return
         
-    @rebel.subcommand(name="guild", description="guild parent commands")
+    @rebel.subcommand(name="server", description="guild parent commands")
     @application_checks.has_permissions(manage_guild=True)
     @application_checks.bot_has_permissions(manage_guild=True)
     @cooldown(1, SEC, bucket=SlashBucket.author)
